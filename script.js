@@ -6,7 +6,7 @@
 // ---------- KONFIGURASI (ubah sesuai bisnismu) ----------
 const CONFIG = {
   brand: 'Lokapixel',
-  whatsapp: '6281234567890',   // GANTI dengan nomor WhatsApp kamu (format 62...)
+  whatsapp: '6282278798779',   // GANTI dengan nomor WhatsApp kamu (format 62...)
   gameSeconds: 30
 };
 
