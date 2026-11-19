@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lokapixel — Budaya Lokal, Versi Pixel</title>
+  <meta name="description" content="Lokapixel: merchandise game bertema legenda & budaya Nusantara dalam gaya pixel art. Main mini game, menangkan voucher, belanja merchandise.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <a href="#beranda" class="logo"><span class="logo-mark">LP</span> Lokapixel</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+  <nav id="navLinks">
+    <a href="#game">Main Game</a>
+    <a href="#toko">Toko</a>
+    <a href="#bisnis">Tentang Bisnis</a>
+    <a href="#komunitas">Komunitas</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#keranjang" class="cart-link">🛒 <span id="cartCount">0</span></a>
+  </nav>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section id="beranda" class="hero">
+  <div class="hero-text">
+    <p class="badge">Bisnis Digital • Bidang Game</p>
+    <h1>Budaya lokal,<br><span class="accent">versi pixel.</span></h1>
+    <p class="lead">Lokapixel membuat merchandise bertema legenda & budaya Nusantara dengan gaya pixel art, untuk generasi gamer yang bangga pada akar budayanya.</p>
+    <div class="hero-cta">
+      <a href="#game" class="btn btn-primary">🎮 Main & Menangkan Voucher</a>
+      <a href="#toko" class="btn btn-ghost">Lihat Produk</a>
+    </div>
+    <div class="stats">
+      <div><strong id="statOrders">0</strong><span>Pesanan masuk</span></div>
+      <div><strong>6</strong><span>Produk tersedia</span></div>
+      <div><strong id="statBest">0</strong><span>Skor tertinggi kamu</span></div>
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="pixel-card">
+      <div class="pixel-sprite">🦚</div>
+      <div class="pixel-sprite s2">🐘</div>
+      <div class="pixel-sprite s3">🏯</div>
+      <p>LEVEL 1: NUSANTARA</p>
+    </div>
+  </div>
+</section>
+
+<!-- GAME -->
+<section id="game" class="section">
+  <h2 class="section-title">🎮 Pixel Panen — Main, Dapat Diskon</h2>
+  <p class="section-sub">Tangkap ikon budaya Nusantara sebelum jatuh! Hindari 💣. Skor tinggi = voucher diskon yang otomatis terpasang saat checkout.</p>
+  <div class="game-wrap">
+    <div class="game-hud">
+      <span>Skor: <strong id="gScore">0</strong></span>
+      <span>Waktu: <strong id="gTime">30</strong>s</span>
+      <span>Rekor: <strong id="gBest">0</strong></span>
+    </div>
+    <canvas id="gameCanvas" width="640" height="400"></canvas>
+    <div class="game-overlay" id="gameOverlay">
+      <h3 id="gameMsgTitle">Siap bermain?</h3>
+      <p id="gameMsg">Klik / ketuk ikon yang jatuh. 🪙 = +1, ⭐ = +3, 💣 = −3.</p>
+      <button class="btn btn-primary" id="gameStart">▶ Mulai Game</button>
+    </div>
+  </div>
+  <div class="voucher-table">
+    <div><strong>10+ poin</strong> → Diskon 5%</div>
+    <div><strong>20+ poin</strong> → Diskon 10%</div>
+    <div><strong>30+ poin</strong> → Diskon 15%</div>
+  </div>
+  <p class="voucher-status" id="voucherStatus">Belum ada voucher. Ayo main!</p>
+</section>
+
+<!-- TOKO -->
+<section id="toko" class="section alt">
+  <h2 class="section-title">🛍️ Toko Lokapixel</h2>
+  <p class="section-sub">Pre-order merchandise edisi pertama. Pembayaran lewat konfirmasi WhatsApp (tanpa sistem pembayaran digital).</p>
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="productGrid"></div>
+</section>
+
+<!-- KERANJANG -->
+<section id="keranjang" class="section">
+  <h2 class="section-title">🛒 Keranjang & Checkout</h2>
+  <div class="checkout">
+    <div class="cart-box">
+      <h3>Isi Keranjang</h3>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="totals">
+        <div><span>Subtotal</span><span id="tSub">Rp 0</span></div>
+        <div><span>Diskon voucher</span><span id="tDisc">- Rp 0</span></div>
+        <div class="grand"><span>Total</span><span id="tTotal">Rp 0</span></div>
+      </div>
+      <button class="btn btn-ghost small" id="clearCart">Kosongkan keranjang</button>
+    </div>
+    <form class="form-box" id="orderForm" novalidate>
+      <h3>Data Pemesan</h3>
+      <label>Nama lengkap
+        <input type="text" id="fName" placeholder="Nama kamu" required>
+      </label>
+      <label>No. WhatsApp
+        <input type="tel" id="fWa" placeholder="08xxxxxxxxxx" required>
+      </label>
+      <label>Alamat pengiriman
+        <textarea id="fAddr" rows="3" placeholder="Alamat lengkap" required></textarea>
+      </label>
+      <label>Catatan (opsional)
+        <input type="text" id="fNote" placeholder="Contoh: stiker tanpa laminasi">
+      </label>
+      <p class="form-error" id="formError" role="alert"></p>
+      <button type="submit" class="btn btn-primary">Buat Pesanan</button>
+    </form>
+  </div>
+  <div class="success" id="orderSuccess" hidden>
+    <h3>✅ Pesanan tersimpan!</h3>
+    <p id="successText"></p>
+    <a class="btn btn-primary" id="waBtn" target="_blank" rel="noopener">Konfirmasi via WhatsApp</a>
+  </div>
+</section>
+
+<!-- ANALISIS BISNIS -->
+<section id="bisnis" class="section alt">
+  <h2 class="section-title">💡 Tentang Bisnis Lokapixel</h2>
+  <p class="section-sub">Bidang: <strong>Game</strong> • Subbidang: merchandise game bertema budaya lokal + game edukatif sederhana</p>
+  <div class="cards">
+    <article class="info-card">
+      <h3>1. Masalah & Kebutuhan</h3>
+      <p>Banyak anak muda lebih mengenal karakter game luar negeri daripada tokoh legenda dan budaya daerahnya sendiri. Di sisi lain, merchandise bertema gamer lokal sangat terbatas dan kebanyakan hanya mengimpor desain luar.</p>
+    </article>
+    <article class="info-card">
+      <h3>2. Mengapa Bidang Game?</h3>
+      <p>Gamer Indonesia berjumlah puluhan juta dan sangat aktif. Game adalah bahasa yang sudah dipahami generasi muda, sehingga menjadi jembatan yang efektif untuk mengenalkan kembali budaya Nusantara.</p>
+    </article>
+    <article class="info-card">
+      <h3>3. Target Pasar</h3>
+      <p>Pelajar SMA/SMK dan mahasiswa usia 15–24 tahun yang menyukai game dan pixel art, kolektor merchandise, serta komunitas gamer daerah yang mencari identitas lokal.</p>
+    </article>
+    <article class="info-card">
+      <h3>4. Keunggulan & Keunikan</h3>
+      <ul>
+        <li>Desain pixel art orisinal bertema legenda Nusantara</li>
+        <li>Website punya mini game yang menghasilkan voucher (gamifikasi)</li>
+        <li>Harga ramah pelajar mulai Rp 15.000</li>
+        <li>Pre-order: minim stok menumpuk, risiko rendah</li>
+      </ul>
+    </article>
+    <article class="info-card">
+      <h3>5. Sumber Pendapatan</h3>
+      <ul>
+        <li>Penjualan merchandise (stiker, gantungan kunci, kaos, dll.)</li>
+        <li>Paket bundling & edisi terbatas</li>
+        <li>Pesanan desain custom (karakter komunitas/sekolah)</li>
+        <li>Kerja sama sponsor & event komunitas</li>
+      </ul>
+    </article>
+    <article class="info-card">
+      <h3>Rencana Pengembangan</h3>
+      <p>Tahap 1: pre-order edisi perdana. Tahap 2: tambah level game baru per daerah. Tahap 3: kolaborasi dengan ilustrator & UMKM percetakan lokal.</p>
+    </article>
+  </div>
+</section>
+
+<!-- KOMUNITAS -->
+<section id="komunitas" class="section">
+  <h2 class="section-title">👾 Komunitas & Ulasan</h2>
+  <p class="section-sub">Beri ulasan atau usul karakter budaya yang ingin kamu lihat jadi pixel art.</p>
+  <div class="community">
+    <form class="form-box" id="reviewForm">
+      <label>Nama
+        <input type="text" id="rName" maxlength="30" required>
+      </label>
+      <label>Usul karakter / ulasan
+        <textarea id="rText" rows="3" maxlength="200" required></textarea>
+      </label>
+      <label>Rating
+        <select id="rRate">
+          <option value="5">⭐⭐⭐⭐⭐</option>
+          <option value="4">⭐⭐⭐⭐</option>
+          <option value="3">⭐⭐⭐</option>
+          <option value="2">⭐⭐</option>
+          <option value="1">⭐</option>
+        </select>
+      </label>
+      <button class="btn btn-primary" type="submit">Kirim</button>
+    </form>
+    <div id="reviewList" class="review-list"></div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="section alt">
+  <h2 class="section-title">📊 Dashboard Pemilik</h2>
+  <p class="section-sub">Rekap pesanan yang tersimpan di perangkat ini (database lokal browser). Cocok untuk demo presentasi.</p>
+  <div class="dash-stats">
+    <div><strong id="dOrders">0</strong><span>Total pesanan</span></div>
+    <div><strong id="dRevenue">Rp 0</strong><span>Total omzet</span></div>
+    <div><strong id="dPending">0</strong><span>Menunggu proses</span></div>
+    <div><strong id="dTop">-</strong><span>Produk terlaris</span></div>
+  </div>
+  <div class="dash-actions">
+    <button class="btn btn-ghost small" id="exportCsv">⬇ Ekspor CSV</button>
+    <button class="btn btn-ghost small" id="seedDemo">✨ Isi data demo</button>
+    <button class="btn btn-ghost small danger" id="resetAll">🗑 Hapus semua data</button>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>ID</th><th>Tanggal</th><th>Pemesan</th><th>Item</th><th>Total</th><th>Status</th><th></th></tr></thead>
+      <tbody id="orderRows"></tbody>
+    </table>
+    <p class="empty" id="orderEmpty">Belum ada pesanan.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section">
+  <h2 class="section-title">❓ FAQ</h2>
+  <details><summary>Bagaimana cara membayar?</summary><p>Setelah membuat pesanan, kamu diarahkan ke WhatsApp untuk konfirmasi dan pembayaran manual (transfer/COD sesuai kesepakatan).</p></details>
+  <details><summary>Voucher game berlaku berapa lama?</summary><p>Voucher tersimpan di browser kamu dan berlaku sampai dipakai pada satu pesanan.</p></details>
+  <details><summary>Berapa lama pre-order selesai?</summary><p>Estimasi 7–14 hari kerja setelah pembayaran dikonfirmasi.</p></details>
+</section>
+
+</main>
+
+<footer class="footer">
+  <p><strong>Lokapixel</strong> — Budaya lokal, versi pixel. © <span id="year"></span></p>
+  <p class="muted">Prototipe bisnis digital • Proyek Kewirausahaan (KWU)</p>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+<script src="script.js"></script>
+</body>
+</html>
