@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediWrap Studio | Kustomisasi Estetik Kemasan Obat & Alat Kesehatan</title>
+    <style>
+        :root {
+            --primary-teal: #1b8a8f;
+            --dark-navy: #163d4d;
+            --ocean-blue: #2396c4;
+            --soft-mint: #e8f6f5;
+            --warm-cream: #fcfaf5;
+            --text-dark: #1f2937;
+            --text-muted: #4b5563;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--warm-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-teal);
+        }
+
+        .logo span {
+            color: var(--ocean-blue);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark-navy);
+            font-weight: 600;
+            margin-left: 20px;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary-teal);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--dark-navy) 0%, var(--primary-teal) 100%);
+            color: var(--white);
+            padding: 4rem 5%;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: rgba(255,255,255,0.18);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            max-width: 800px;
+            margin: 0 auto 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            max-width: 680px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+            opacity: 0.92;
+        }
+
+        .btn-cta {
+            background-color: var(--white);
+            color: var(--dark-navy);
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        section {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--dark-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .studio-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(22, 61, 77, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .preview-box {
+            background-color: var(--soft-mint);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 360px;
+            border: 2px dashed #b2dfdb;
+        }
+
+        .device-mockup {
+            width: 250px;
+            height: 160px;
+            background-color: #1b8a8f;
+            border-radius: 24px;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.18);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 18px;
+            color: white;
+            position: relative;
+            transition: all 0.3s ease;
+            border: 4px solid rgba(255,255,255,0.45);
+        }
+
+        .device-mockup.pattern-dots {
+            background-image: radial-gradient(rgba(255,255,255,0.28) 2px, transparent 2px);
+            background-size: 16px 16px;
+        }
+
+        .device-mockup.pattern-waves {
+            background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.12) 0, rgba(255,255,255,0.12) 10px, transparent 10px, transparent 20px);
+        }
+
+        .mockup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            opacity: 0.95;
+        }
+
+        .mockup-icon {
+            font-size: 2.2rem;
+            text-align: center;
+        }
+
+        .mockup-name {
+            background: rgba(255,255,255,0.95);
+            color: var(--dark-navy);
+            padding: 6px 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .preview-caption {
+            margin-top: 1.2rem;
+            font-size: 0.85rem;
+            color: var(--dark-navy);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .control-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .control-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: var(--dark-navy);
+            font-size: 0.95rem;
+        }
+
+        .control-group select,
+        .control-group input[type="text"] {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .control-group select:focus,
+        .control-group input[type="text"]:focus {
+            border-color: var(--primary-teal);
+        }
+
+        .color-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .color-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .color-btn.active {
+            border-color: var(--dark-navy);
+            transform: scale(1.12);
+        }
+
+        .price-summary {
+            background-color: var(--soft-mint);
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price-summary span {
+            font-weight: 600;
+            color: var(--dark-navy);
+        }
+
+        .price-summary strong {
+            font-size: 1.4rem;
+            color: var(--primary-teal);
+        }
+
+        .btn-order {
+            width: 100%;
+            background-color: var(--primary-teal);
+            color: var(--white);
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-order:hover {
+            background-color: var(--dark-navy);
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 1.8rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            border-top: 4px solid var(--primary-teal);
+        }
+
+        .card h3 {
+            color: var(--dark-navy);
+            margin-bottom: 0.75rem;
+            font-size: 1.15rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            background-color: var(--dark-navy);
+            color: var(--white);
+            text-align: center;
+            padding: 2.5rem 5%;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            opacity: 0.85;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .studio-container {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">🩺 Medi<span>Wrap</span> Studio</div>
+        <nav>
+            <a href="#studio">Studio Kustomisasi</a>
+            <a href="#analisis">Analisis Bisnis</a>
+            <a href="#paket">Model Pendapatan</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <div class="badge">Ekosistem Anti-Labeling Kesehatan • Proyek Bisnis Digital</div>
+        <h1>Ubah Kemasan Obat Kaku Menjadi Ekspresi Gaya Hidup Sehatmu</h1>
